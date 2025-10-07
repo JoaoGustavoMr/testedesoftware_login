@@ -1,9 +1,9 @@
 /**
- * testeAutomatizado_cadastro.js
+ * testeAutomatizado.js
  *
  * Como rodar:
  * 1) npm install selenium-webdriver
- * 2) node testeAutomatizado_cadastro.js
+ * 2) node testeAutomatizado.js
  */
 
 const { Builder, By, until } = require("selenium-webdriver");
@@ -12,10 +12,10 @@ const path = require("path");
 let relatorio = [];
 
 // ---------- CONFIGURAÇÃO ----------
-const TARGET_URL = "http://localhost/testedesoftware_login/cadastro.php"; // página de cadastro
-const SCREENSHOT_DIR = path.join(__dirname, "assets", "screenshots_cadastro");
-const TIMEOUT_MS = 5000;
-const SWEETALERT_DELAY_MS = 1000;
+const TARGET_URL = "http://localhost/testedesoftware_login/login.php";
+const SCREENSHOT_DIR = path.join(__dirname, "assets", "screenshots");
+const TIMEOUT_MS = 5000; // tempo de espera padrão
+const SWEETALERT_DELAY_MS = 1000; // delay para SweetAlert aparecer
 
 // Garante que a pasta de screenshots exista
 fs.mkdirSync(SCREENSHOT_DIR, { recursive: true });
@@ -32,18 +32,14 @@ function delay(ms) {
 }
 
 // ---------- FUNÇÃO DE TESTE ----------
-async function testarCadastro(nome, email, senha, descricao) {
+async function testarLogin(email, senha, descricao) {
 	let driver = await new Builder().forBrowser("chrome").build();
 	let status = "pass";
-	let mensagem = "";
+	let mensagem = ""; // declarado antes do try
 
 	try {
 		console.log(`\nTestando: ${descricao}`);
 		await driver.get(TARGET_URL);
-
-		// Preenche nome
-		await driver.wait(until.elementLocated(By.id("nome")), TIMEOUT_MS);
-		await driver.findElement(By.id("nome")).sendKeys(nome);
 
 		// Preenche email
 		await driver.wait(until.elementLocated(By.id("email")), TIMEOUT_MS);
@@ -53,16 +49,16 @@ async function testarCadastro(nome, email, senha, descricao) {
 		await driver.wait(until.elementLocated(By.id("senha")), TIMEOUT_MS);
 		await driver.findElement(By.id("senha")).sendKeys(senha);
 
-		// Clica no botão de cadastro
-		await driver.wait(until.elementLocated(By.id("btn-cadastro")), TIMEOUT_MS);
-		await driver.findElement(By.id("btn-cadastro")).click();
+		// Clica no botão de login
+		await driver.wait(until.elementLocated(By.id("btn-login")), TIMEOUT_MS);
+		await driver.findElement(By.id("btn-login")).click();
 
 		// Aguarda SweetAlert aparecer
 		await delay(SWEETALERT_DELAY_MS);
 
 		// Captura mensagem do SweetAlert
 		const alertElement = await driver.wait(
-			until.elementLocated(By.css(".swal2-popup")),
+			until.elementLocated(By.css(".swal2-popup")), // seletor padrão SweetAlert2
 			TIMEOUT_MS
 		);
 		mensagem = await alertElement.getText();
@@ -117,48 +113,29 @@ async function testarCadastro(nome, email, senha, descricao) {
 	}
 }
 
-// ---------- ARRAY DE TESTES DE CADASTRO ----------
-const testesCadastro = [
-	{
-		nome: "Luciano",
-		email: "luciano@gmail.com",
-		senha: "123qwe",
-		descricao: "Cadastro realizado com sucesso"
-	},
-	{
-		nome: "",
-		email: "usuario@email.com",
-		senha: "123456",
-		descricao: "Campo nome não preenchido"
-	},
-	{
-		nome: "Maria Silva",
-		email: "",
-		senha: "senha123",
-		descricao: "Campo email não preenchido"
-	},
-	{
-		nome: "Carlos Souza",
-		email: "carlos@email.com",
-		senha: "",
-		descricao: "Campo senha não preenchido"
-	},
+// ---------- ARRAY DE TESTES ----------
+const testes = [
+	{ email: "joaogustavo2202@gmail.com", senha: "123qwe", descricao: "Login correto" },
+	{ email: "joaogustavo2202@gmail.com", senha: "errada", descricao: "Senha incorreta" },
+	{ email: "", senha: "1234", descricao: "Campo email vazio" },
+	{ email: "joaogustavo2202@gmail.com", senha: "", descricao: "Campo senha vazio" },
+	{ email: "<script>", senha: "1234", descricao: "Tentativa de XSS" },
 ];
 
 // ---------- EXECUÇÃO SEQUENCIAL ----------
 (async () => {
-	if (!testsOrArrayIsValid(testesCadastro)) {
-		console.log("Nenhum teste de cadastro configurado.");
+	if (!testsOrArrayIsValid(testes)) {
+		console.log("Nenhum teste configurado.");
 		return;
 	}
 
-	for (let t of testesCadastro) {
-		await testarCadastro(t.nome, t.email, t.senha, t.descricao);
+	for (let t of testes) {
+		await testarLogin(t.email, t.senha, t.descricao);
 	}
 
 	// Salva relatório final em JSON
-	fs.writeFileSync("relatorio_cadastro.json", JSON.stringify(relatorio, null, 2));
-	console.log("\nRelatório final salvo em relatorio_cadastro.json");
+	fs.writeFileSync("relatorio.json", JSON.stringify(relatorio, null, 2));
+	console.log("\nRelatório final salvo em relatorio.json");
 })();
 
 // ---------- FUNÇÕES AUXILIARES ----------
