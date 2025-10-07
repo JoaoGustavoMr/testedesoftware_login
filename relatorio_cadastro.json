@@ -1,0 +1,26 @@
+[
+  {
+    "teste": "Cadastro realizado com sucesso",
+    "status": "fail",
+    "mensagem": "",
+    "screenshot": "C:\\xampp\\htdocs\\testedesoftware_login\\assets\\screenshots_cadastro\\screenshot_erro_Cadastro_realizado_com_sucesso.png"
+  },
+  {
+    "teste": "Campo nome não preenchido",
+    "status": "fail",
+    "mensagem": "",
+    "screenshot": "C:\\xampp\\htdocs\\testedesoftware_login\\assets\\screenshots_cadastro\\screenshot_erro_Campo_nome_no_preenchido.png"
+  },
+  {
+    "teste": "Campo email não preenchido",
+    "status": "fail",
+    "mensagem": "",
+    "screenshot": "C:\\xampp\\htdocs\\testedesoftware_login\\assets\\screenshots_cadastro\\screenshot_erro_Campo_email_no_preenchido.png"
+  },
+  {
+    "teste": "Campo senha não preenchido",
+    "status": "fail",
+    "mensagem": "",
+    "screenshot": "C:\\xampp\\htdocs\\testedesoftware_login\\assets\\screenshots_cadastro\\screenshot_erro_Campo_senha_no_preenchido.png"
+  }
+]

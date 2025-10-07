@@ -1,0 +1,32 @@
+[
+  {
+    "teste": "Login correto",
+    "status": "fail",
+    "mensagem": "",
+    "screenshot": "C:\\xampp\\htdocs\\testedesoftware_login\\assets\\screenshots\\screenshot_erro_Login_correto.png"
+  },
+  {
+    "teste": "Senha incorreta",
+    "status": "fail",
+    "mensagem": "",
+    "screenshot": "C:\\xampp\\htdocs\\testedesoftware_login\\assets\\screenshots\\screenshot_erro_Senha_incorreta.png"
+  },
+  {
+    "teste": "Campo email vazio",
+    "status": "fail",
+    "mensagem": "",
+    "screenshot": "C:\\xampp\\htdocs\\testedesoftware_login\\assets\\screenshots\\screenshot_erro_Campo_email_vazio.png"
+  },
+  {
+    "teste": "Campo senha vazio",
+    "status": "fail",
+    "mensagem": "",
+    "screenshot": "C:\\xampp\\htdocs\\testedesoftware_login\\assets\\screenshots\\screenshot_erro_Campo_senha_vazio.png"
+  },
+  {
+    "teste": "Tentativa de XSS",
+    "status": "fail",
+    "mensagem": "",
+    "screenshot": "C:\\xampp\\htdocs\\testedesoftware_login\\assets\\screenshots\\screenshot_erro_Tentativa_de_XSS.png"
+  }
+]
